@@ -1,0 +1,90 @@
+{% load staticfiles %}
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC >
+<html>
+
+<head>
+    <link rel="StyleSheet" href="{% static "style.css" %}" type="text/css" media="all" />
+<title>
+    HOTELES MADRILEÑOS
+</title>
+
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+</head>
+<body>
+<style>
+  body{
+    background-color: {{ color }}
+  }
+  body{
+    font-size: {{size}}
+  }
+</style>
+<div class="container">
+
+    <div class="titleblock">
+        {% if user %}
+            <p> Hola  {{ user }}</p>
+            <a href='admin/logout/'><button>Logout</button></a><br>
+        {% else %}
+            <form action="accounts/profile/" method="post" accept-charset="utf-8">
+                {% csrf_token %}
+                <label for="username">USUARIO</label><input type="text" name="username" value="" />
+                <br>
+                <label for="password">CONTRASEÑA</label><input type="password" name="password" value=""  />
+                <p><input type="submit" value="Login"></p>
+            </form>
+        {% endif %}
+
+    </div>
+
+
+    <ul class="navbar">
+		 <li><a href="http://127.0.0.1:1234/" class="nav">INICIO</a></li>
+		 <li><a href="http://127.0.0.1:1234/alojamientos" class="nav">TODOS</a></li>
+		 <li><a href="http://127.0.0.1:1234/about" class="nav">ABOUT</a></li>
+</div>
+
+<div class="rightcontainer">
+
+	<div class="rightbox">
+	  <h2>Usuarios</h2>
+      <ul>
+          {% for h in listausers %}
+            {% if h.title == condicion %}
+                <li><a href= "{{ h.user }}">Pagina de {{h.id}}</a></li>
+            {% else %}
+                <li><a href= "{{ h.user }}">{{h.title}}</a></li>
+            {% endif %}
+          {% endfor %}
+        </ul>
+	</div>
+</div>
+
+<div class="content">	
+    <ul>	
+        {% for h in lista %}    	
+            <li>{{ h.address }}</li>	
+	    <p>{{h.name}}</p>
+            {% if h.source != condicion %}
+                <img src="{{ h.source }}"></img>
+            {% else %}
+                <li> No hay imagenes para mostrar </li>
+            {% endif %}
+
+            <li><a href="http://127.0.0.1:1234/alojamientos/{{h.id}}">Más información </li>
+            <br>
+        {% endfor %}
+    </ul>
+</div>
+
+<div class="footer">
+        <p> <a href= "http://www.madrid.org/cs/Satellite?pagename=ComunidadMadrid/Home">Esta aplicación utiliza datos de libre acceso de la comunidad de Madrid</a></p>
+        <p><a href="http://www.esmadrid.com/opendata/alojamientos_v1_es.xml">Datos XML</a></p>
+        <p><a href="http://bit.ly/1T24Zsq">Descripción</a></p>
+</div>
+
+
+</body>
+</html>

@@ -1,0 +1,93 @@
+{% load staticfiles %}
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC >
+<html>
+
+<head>
+    <link rel="StyleSheet" href="{% static "style.css" %}" type="text/css" media="all" />
+<title>
+    ﻿Madrid Hoteles
+</title>
+
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+</head>
+<body>
+<style>
+  body{
+    background-color: {{ color }}
+  }
+  body{
+    font-size: {{size}}
+  }
+</style>
+<div class="container">
+
+    <div class="titleblock">
+        {% if user %}
+            <p> Hola  {{ user }}</p>
+            <a href='admin/logout/'><button>Logout</button></a><br>
+        {% else %}
+            <form action="accounts/profile/" method="post" accept-charset="utf-8">
+                {% csrf_token %}
+                <label for="username">Usuario</label><input type="text" name="username" value="" />
+                <br>
+                <label for="password">Constraseña</label><input type="password" name="password" value=""  />
+                <p><input type="submit" value="Login"></p>
+            </form>
+        {% endif %}
+
+    </div>
+
+
+    <ul class="navbar">
+		 <li><a href="http://127.0.0.1:1234/" class="nav">INICIO</a></li>
+		 <li><a href="http://127.0.0.1:1234/alojamientos" class="nav">TODOS</a></li>
+		 <li><a href="http://127.0.0.1:1234/about" class="nav">ABOUT</a></li>
+    </ul>
+</div>
+
+<div class="rightcontainer">
+
+	<div class="rightbox">
+	  <h2>Usuarios</h2>
+      <ul>
+          {% for h in listausers %}
+            {% if h.title == condicion %}
+                <li><a href= "{{ h.user }}">Pagina de {{h.id}}</a></li>
+            {% else %}
+                <li><a href= "{{ h.user }}">{{h.title}}</a></li>
+            {% endif %}
+          {% endfor %}
+        </ul>
+	</div>
+</div>
+
+<div class="content">
+      <p>Práctica de Larrinson Mendoza Villarreal</p>
+      <p>   Alumno en Sistemas de Telecomunicacion
+     </p>
+     <p> La práctica consiste en descargar informacion de un archivo XML de la comunidad de Madrid,
+         filtraremos (parsear) la informacion que nos interese para luego mostrarlo por pantalla al navegador.
+         Una vez guardada lo que hacemoses extraerla de la base de datos y componer nuestra pagina de hoteles.
+     </p>
+     <p>En la pagina principal podemos ver los hoteles que tienen comentario (y si no los tuviera a priori se
+	seleccionaria diez hoteles aleatoriamente) ; si pinchamos en "todos" veremos
+        todos los hoteles y donde podremos interactuar con las funcionalidades de seleccionar un hotel.
+	Seleccionando el nombre de un hotel podremos ver toda la informacion de los hoteles.
+    
+       Podremos tener cuenta en esta pagina ; al tener cuenta en la pagina nos permitira	
+       poner comentario en la pagina propia del hotel, podremos seleccionarlo para que aparezca en nuestra pagina personal
+       podremos tambien selecionar el color de fonde el tamaño de letra
+       e incluso el nombre de nuestra pagina.</p>
+</div>
+
+<div class="footer">
+        <p>Esta aplicación utiliza datos del portal de datos abiertos de la ciudad de Madrid</p>
+        <p><a href="http://www.esmadrid.com/opendata/alojamientos_v1_es.xml">Datos XML</a></p>
+        <p><a href="http://bit.ly/1T24Zsq">Descripción</a></p>
+</div>
+
+
+</body>
+</html>

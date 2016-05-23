@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<serviceList>
+    {% for h in lista %}
+    <basicData>
+        <name>{{h.name}}</name>
+    </basicData>
+    <geoData>
+        <address>{{h.address}}</address>
+    </geoData>
+    <multiMedia>
+        <url>{{h.source}}</url>
+    </multiMedia>
+    {% endfor %}
+</serviceList>
